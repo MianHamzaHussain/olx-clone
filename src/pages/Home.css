@@ -1,0 +1,14 @@
+.banner {
+  background-image: url("../images/banner.jpg");
+  background-repeat: no-repeat;
+  background-size: 100vw 30vh;
+  height: 40vh;
+  width: 100%;
+  margin-top: 2rem;
+}
+@media screen and (max-width: 992px) {
+  .banner {
+    background-size: contain;
+    height: 40vh;
+  }
+}

@@ -1,0 +1,19 @@
+.cardCon {
+  width: 17rem;
+  color: black;
+  margin-top: 0;
+  height: auto;
+  line-height: 0.5rem;
+}
+
+#pic {
+  max-width: 16rem;
+  max-height: 10rem;
+  border: 1px solid;
+}
+.favor {
+  position: relative;
+  border: 1px solid red;
+  bottom: 50%;
+  left: 90%;
+}
