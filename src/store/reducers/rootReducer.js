@@ -6,6 +6,7 @@ import {
   adDetailsReducer,
   adFilterReducer,
   adSearchReducer,
+  adUupdateReducer,
   ad_ListReducer,
 } from "./adReducers";
 const reducer = combineReducers({
@@ -17,5 +18,6 @@ const reducer = combineReducers({
   adFilter: adFilterReducer,
   adDelete: adDeleteReducer,
   adCreate: adCreateReducer,
+  adUpdate: adUupdateReducer,
 });
 export default reducer;

@@ -25,7 +25,7 @@ const SearchBox = ({ history }) => {
         variant="dark"
         style={{ display: "inline", height: "3rem", marginLeft: "1px" }}
       >
-        <i class="fa fa-search" aria-hidden="true"></i>
+        <i className="fa fa-search" aria-hidden="true"></i>
       </Button>
     </Form>
   );

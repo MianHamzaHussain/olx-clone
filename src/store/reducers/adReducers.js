@@ -21,6 +21,10 @@ import {
   Ad_Search_Request,
   Ad_Search_Reset,
   Ad_Search_Success,
+  Ad_Update_Fail,
+  Ad_Update_Request,
+  Ad_Update_Reset,
+  Ad_Update_Success,
 } from "../constants/adConstants";
 export const ad_ListReducer = (state = { ads: [] }, action) => {
   switch (action.type) {
@@ -159,6 +163,29 @@ export const adCreateReducer = (state = {}, action) => {
         error: action.payload,
       };
     case Ad_Create_Reset: {
+      return {};
+    }
+    default:
+      return state;
+  }
+};
+export const adUupdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case Ad_Update_Request:
+      return {
+        loading: true,
+      };
+    case Ad_Update_Success:
+      return {
+        loading: false,
+        success: true,
+      };
+    case Ad_Update_Fail:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case Ad_Update_Reset: {
       return {};
     }
     default:

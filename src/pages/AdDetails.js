@@ -8,19 +8,20 @@ import Message from "../components/Message";
 import Slider from "../components/Slider";
 import Meta from "../components/Meta";
 
-const AdDetails = ({ match }) => {
+const AdDetails = ({ match, location }) => {
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+
   const adDetails = useSelector((state) => state.adDetails);
   const { loading, error, ad } = adDetails;
 
+  const redirectTo = location.search ? location.search.split("=")[1] : "/";
   useEffect(() => {
     dispatch(listAdDetails(match.params.id));
   }, [dispatch, match]);
+  console.log(location);
   return (
     <>
-      <Link to="/" className="btn btn-info py-3">
+      <Link to={redirectTo} className="btn btn-info py-3 my-3 mx-2">
         Go Back
       </Link>
       {loading ? (

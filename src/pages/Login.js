@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import FormContainer from "../components/FormContainer";
+
 import { login } from "../store/actions/userActions";
 const LoginScreen = ({ location, history }) => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const LoginScreen = ({ location, history }) => {
     dispatch(login(email, password));
   };
   return (
-    <FormContainer>
+    <Form>
       <h1>SignIn </h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
@@ -67,7 +67,7 @@ const LoginScreen = ({ location, history }) => {
           </Link>
         </Col>
       </Row>
-    </FormContainer>
+    </Form>
   );
 };
 

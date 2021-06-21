@@ -1,4 +1,8 @@
 import {
+  Ad_Create_Fail,
+  Ad_Create_Request,
+  Ad_Create_Reset,
+  Ad_Create_Success,
   Ad_Delete_Fail,
   Ad_Delete_Request,
   Ad_Delete_Success,
@@ -16,6 +20,10 @@ import {
   Ad_Search_Request,
   Ad_Search_Reset,
   Ad_Search_Success,
+  Ad_Update_Fail,
+  Ad_Update_Request,
+  Ad_Update_Reset,
+  Ad_Update_Success,
 } from "../constants/adConstants";
 import { db } from "../../config/firebase";
 export const listAds = () => async (dispatch) => {
@@ -83,7 +91,7 @@ export const listFilterAds = (filter) => async (dispatch) => {
     const ftype = filter.split("=")[0];
     const fvalue = filter.split("=")[1];
     let data = null;
-    if (ftype == "cat") {
+    if (ftype === "cat") {
       data = await db
         .collection("adds")
 
@@ -112,18 +120,77 @@ export const listFilterAds = (filter) => async (dispatch) => {
     });
   }
 };
-export const deleteAd = (id, data) => async (dispatch) => {
+export const deleteAd = (id) => async (dispatch) => {
   try {
-    console.log("calling");
     dispatch({ type: Ad_Delete_Request });
     await db.collection("adds").doc(id).delete();
 
     dispatch({ type: Ad_Delete_Success });
-    const ads = data.filter((ad) => ad.id !== id);
-    dispatch({ type: Ad_Filter_Success, payload: ads });
   } catch (error) {
     dispatch({
       type: Ad_Delete_Fail,
+      payload: error,
+    });
+  }
+};
+export const createAd = (data) => async (dispatch) => {
+  try {
+    dispatch({ type: Ad_Create_Reset });
+    dispatch({ type: Ad_Create_Request });
+    // console.log("data received", data);
+    const { uid, name, category, price, city, images, description, condition } =
+      data;
+    await db.collection("adds").add({
+      name,
+      category,
+      price,
+      city,
+      description,
+      images,
+      condition,
+      uid,
+    });
+
+    dispatch({ type: Ad_Create_Success });
+  } catch (error) {
+    dispatch({
+      type: Ad_Create_Fail,
+      payload: error,
+    });
+  }
+};
+export const updateAd = (data) => async (dispatch) => {
+  try {
+    dispatch({ type: Ad_Update_Reset });
+    dispatch({ type: Ad_Update_Request });
+    console.log("data received", data);
+    const {
+      id,
+      uid,
+      name,
+      category,
+      price,
+      city,
+      images,
+      description,
+      condition,
+    } = data;
+    console.log(id, "id for doc");
+    await db.collection("adds").doc(id).set({
+      name: name,
+      category: category,
+      price: price,
+      city: city,
+      description: description,
+      images: images,
+      condition: condition,
+      uid: uid,
+    });
+
+    dispatch({ type: Ad_Update_Success });
+  } catch (error) {
+    dispatch({
+      type: Ad_Update_Fail,
       payload: error,
     });
   }

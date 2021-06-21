@@ -23,7 +23,8 @@ const App = () => {
             <Route path="/" component={Home} exact></Route>
             <Route path="/login" component={Login} exact></Route>
             <Route path="/register" component={Register} exact></Route>
-            <Route path="/ad/:id" component={AdDetails}></Route>
+            <Route path="/ad/:id" component={AdDetails} exact></Route>
+            <Route path="/ad/:id?" component={AdDetails} exact />
             <Route path="/myads" component={MyAds} exact></Route>
             <Route path="/category/:cat" component={Category} exact></Route>
             <Route path="/search/:keyword" component={Search} exact />

@@ -20,3 +20,7 @@ export const Ad_Create_Request = "Ad_Create_Request";
 export const Ad_Create_Success = "Ad_Create_Success";
 export const Ad_Create_Fail = "Ad_Create_Fail";
 export const Ad_Create_Reset = "Ad_Create_Reset";
+export const Ad_Update_Request = "Ad_Update_Request";
+export const Ad_Update_Success = "Ad_Update_Success";
+export const Ad_Update_Fail = "Ad_Update_Fail";
+export const Ad_Update_Reset = "Ad_Update_Reset";

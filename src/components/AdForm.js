@@ -2,14 +2,21 @@ import React, { useState, useEffect } from "react";
 
 import { Form, Button, ProgressBar } from "react-bootstrap";
 import { storage } from "../config/firebase";
+import { createAd, updateAd } from "../store/actions/adActions";
+import { useDispatch } from "react-redux";
+const AdForm = ({ recordForEdit, userId, close }) => {
+  const [ReImages, setReImages] = useState(null);
+  const [images, setImages] = useState([]);
+  const [urls, setURLS] = useState([]);
 
-const AdForm = ({ recordForEdit, userId }) => {
+  const [progress, setProgress] = useState(0);
+  const dispatch = useDispatch();
   const initial = {
+    id: 0,
     uid: userId,
     name: "",
     category: "",
     price: 0,
-    images: [""],
     description: "",
     city: "",
     condition: "used",
@@ -23,19 +30,6 @@ const AdForm = ({ recordForEdit, userId }) => {
       [name]: value,
     });
   };
-
-  const [images, setImages] = useState([]);
-  const [urls, setURLS] = useState([]);
-
-  const [progress, setProgress] = useState(0);
-  useEffect(() => {
-    if (recordForEdit !== null) {
-      setValues({
-        ...recordForEdit,
-      });
-      setImages(recordForEdit.images);
-    }
-  }, [recordForEdit]);
   const handleFileChange = (e) => {
     for (let index = 0; index < e.target.files.length; index++) {
       const newImage = e.target.files[index];
@@ -43,11 +37,26 @@ const AdForm = ({ recordForEdit, userId }) => {
       setImages((prevState) => [...prevState, newImage]);
     }
   };
+  useEffect(() => {
+    if (recordForEdit !== null) {
+      setValues({
+        id: recordForEdit.id,
+        name: recordForEdit.name,
+
+        uid: recordForEdit.uid,
+        price: recordForEdit.price,
+        description: recordForEdit.description,
+        city: recordForEdit.city,
+        condition: recordForEdit.condition,
+        category: recordForEdit.category,
+      });
+      setReImages(recordForEdit.images);
+    }
+  }, [recordForEdit]);
+
   const handleUpload = () => {
-    const promises = [];
     images.map((image) => {
       const uploadTask = storage.ref(`images/${image.name}`).put(image);
-      promises.push(uploadTask);
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -56,26 +65,42 @@ const AdForm = ({ recordForEdit, userId }) => {
           );
           setProgress(progress);
         },
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          storage
-            .ref("images")
-            .child(image.name)
-            .getDownloadURL()
-            .then((iURL) => {
-              console.log(iURL);
-            })
-            .catch((error) => console.log("urlerror==", error));
+        (error) => console.log("error block==", error),
+        async () => {
+          try {
+            const url = await storage
+              .ref("images")
+              .child(image.name)
+              .getDownloadURL();
+            // console.log("url", url);
+            setURLS((prevState) => [...prevState, url]);
+          } catch (error) {
+            console.log("getting download error", error);
+          }
         }
       );
     });
   };
+  // console.log(urls);
+
   const submithandler = (e) => {
     e.preventDefault();
-    alert(values);
-    console.log(values);
+
+    if (values.id === 0) {
+      if (urls.length > 0) {
+        dispatch(createAd({ ...values, images: urls }));
+        close();
+      } else {
+        alert("please upload atleast single photo of product");
+      }
+    } else {
+      if (urls.length > 0) {
+        dispatch(updateAd({ ...values, images: urls }));
+      } else {
+        dispatch(updateAd({ ...values, images: ReImages }));
+      }
+      close();
+    }
   };
   return (
     <Form>
@@ -181,8 +206,6 @@ const AdForm = ({ recordForEdit, userId }) => {
         </div>
       </Form.Group>
       <Form.Group controlId="submit" className="my-3">
-        <Form.Label>Submit</Form.Label>
-
         <Button onClick={submithandler}>Submit</Button>
       </Form.Group>
     </Form>

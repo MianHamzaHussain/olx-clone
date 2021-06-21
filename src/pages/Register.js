@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import FormContainer from "../components/FormContainer";
+
 import { register } from "../store/actions/userActions";
 const Register = ({ location, history }) => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Register = ({ location, history }) => {
     }
   };
   return (
-    <FormContainer>
+    <Form>
       <h1>Sign Up</h1>
       {error && <Message variant="danger">{error}</Message>}
       {message && <Message variant="danger">{message}</Message>}
@@ -93,7 +93,7 @@ const Register = ({ location, history }) => {
           </Link>
         </Col>
       </Row>
-    </FormContainer>
+    </Form>
   );
 };
 
