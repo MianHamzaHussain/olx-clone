@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { listFilterAds } from "../store/actions/adActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Meta from "../components/Meta";
 import Ad from "../components/Ad";
 
 const Category = ({ match }) => {
@@ -31,6 +32,7 @@ const Category = ({ match }) => {
       ) : (
         <>
           <Container>
+            <Meta title={filter.split("=")[1].toLocaleUpperCase()} />
             <Row>
               {ads.length > 0
                 ? ads.map((ad) => (

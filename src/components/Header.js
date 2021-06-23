@@ -57,7 +57,7 @@ const Header = () => {
             )}
             <LinkContainer to="/myfavourite">
               <Nav.Link>
-                <i className="fa fa-heart"> Favourite Ads</i>
+                <i className="fa fa-heart"> Favourite </i>
               </Nav.Link>
             </LinkContainer>
           </Nav>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Image, Button, Container } from "react-bootstrap";
 import Message from "../components/Message";
+import Meta from "../components/Meta";
 import { removeFromFavourite } from "../store/actions/favouriteActions";
 
 const Favourite = () => {
@@ -16,6 +17,7 @@ const Favourite = () => {
 
   return (
     <Container>
+      <Meta title={"My Favourite"} />
       <Row>
         <Col md={12}>
           <h1 className="text-center"> Favourite Ads</h1>
@@ -32,7 +34,7 @@ const Favourite = () => {
                       <Image src={item.images[0]} alt={item.name} fluid />
                     </Col>
                     <Col md={2}>
-                      <Link to={`/ad/${item.id}?redirect=myfavourite`}>
+                      <Link to={`/ad/${item.id}?redirect=/myfavourite`}>
                         {item.name}
                       </Link>
                     </Col>

@@ -6,6 +6,7 @@ import { listSearchAds } from "../store/actions/adActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Ad from "../components/Ad";
+import Meta from "../components/Meta";
 import "./Search.css";
 const Search = ({ match }) => {
   const keyword = match.params.keyword;
@@ -18,6 +19,7 @@ const Search = ({ match }) => {
   return (
     <>
       <Container fluid>
+        <Meta title={`Search for ${keyword}`} />
         <h1 className="text-center"> Showing Results for {keyword}</h1>
         <Link to="/" className="btn btn-info py-3">
           Go Back
