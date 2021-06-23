@@ -6,10 +6,16 @@ import reducer from "./reducers/rootReducer";
 const userInfoFromLocalStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
+const favourItemsFromLocalStorage = localStorage.getItem("favouriteItems")
+  ? JSON.parse(localStorage.getItem("favouriteItems"))
+  : [];
 
 const intialState = {
   userLogin: {
     userInfo: userInfoFromLocalStorage,
+  },
+  favourite: {
+    favouriteItems: favourItemsFromLocalStorage,
   },
 };
 const middleware = [thunk];

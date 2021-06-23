@@ -9,6 +9,7 @@ import {
   adUupdateReducer,
   ad_ListReducer,
 } from "./adReducers";
+import { favouriteReducer } from "./favouriteReducer";
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
@@ -19,5 +20,6 @@ const reducer = combineReducers({
   adDelete: adDeleteReducer,
   adCreate: adCreateReducer,
   adUpdate: adUupdateReducer,
+  favourite: favouriteReducer,
 });
 export default reducer;

@@ -26,8 +26,7 @@ const Header = () => {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Route render={({ history }) => <SearchBox history={history} />} />
-          <Nav className="ml-auto">
-            {/* <Nav.Link href="#link">Link</Nav.Link> */}
+          <Nav className="ms-auto">
             <NavDropdown title="Categories" id="categories">
               <LinkContainer to="/category/cars">
                 <NavDropdown.Item>Cars</NavDropdown.Item>
@@ -39,6 +38,7 @@ const Header = () => {
                 <NavDropdown.Item>Mobiles</NavDropdown.Item>
               </LinkContainer>
             </NavDropdown>
+
             {userInfo ? (
               <NavDropdown title={userInfo.displayName} id="username">
                 <LinkContainer to="/myads">
@@ -55,6 +55,11 @@ const Header = () => {
                 </Nav.Link>
               </LinkContainer>
             )}
+            <LinkContainer to="/myfavourite">
+              <Nav.Link>
+                <i className="fa fa-heart"> Favourite Ads</i>
+              </Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

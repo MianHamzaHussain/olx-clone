@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import AdDetails from "./pages/AdDetails";
 import Register from "./pages/Register";
 import Search from "./pages/Search";
+import Favourite from "./pages/Favourite";
 import Category from "./pages/Category";
 import MyAds from "./pages/MyAds";
 import React from "react";
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/myads" component={MyAds} exact></Route>
             <Route path="/category/:cat" component={Category} exact></Route>
             <Route path="/search/:keyword" component={Search} exact />
+            <Route path="/myfavourite" component={Favourite} exact />
           </Switch>
         </div>
       </Router>
